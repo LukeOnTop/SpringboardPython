@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{%block content%}
+
+<h1>Flask-Survey</h1>
+
+<form action="/start" method="POST">
+    <p>{{survey.title}}</p>
+    <p>{{survey.instructions}}</p>
+    <button>Start!</button>
+</form>
+
+{%endblock%}

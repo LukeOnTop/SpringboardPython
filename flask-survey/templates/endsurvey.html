@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{%block content%}
+<h1>Satisfaction Survey</h1>
+
+<h3>{{all_resp}}</h3>
+<h4>Thanks for taking our survey!</h4>
+
+<form action="/clear">
+    <button>All Done!</button>
+</form>
+{%endblock%}
