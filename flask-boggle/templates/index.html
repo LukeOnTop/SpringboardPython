@@ -1,0 +1,46 @@
+<!doctype html>
+<html>
+
+<head>
+  <title>Boggle</title>
+  <link rel="stylesheet" href="/static/boggle.css">
+</head>
+
+<body>
+  <section id="boggle">
+    <h2 id="timer"></h2>
+    <h2 class="highscore">Highscore : 0</h2>
+    <h2 class="score">Score : 0</h2>
+    <h2 class="gamesplayed"></h2>
+
+    <h2 class="answer"></h2>
+
+    <table class="board">
+      <tbody>
+        {% for row in board %}
+        <tr>
+          {% for cell in row %}
+          <td>{{ cell }}</td>
+          {% endfor %}
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    <br>
+    <form method="POST" class="add-word" id="form">
+      <input name="word" class="word">
+      <button>Submit</button>
+    </form>
+    <ul class="guesses"></ul>
+    <br>
+    <button class="replay">New Game</button>
+  </section>
+  <script src="http://unpkg.com/jquery"></script>
+  <script src="https://unpkg.com/axios@0.19.0/dist/axios.js"></script>
+  <script src="/static/boggle.js"></script>
+  <script>
+    let game = new BoggleGame("boggle");
+  </script>
+</body>
+
+</html>
