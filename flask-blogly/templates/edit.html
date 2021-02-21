@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block heading %}
+<h1>Edit Me! - {{user.first_name}}</h1>
+{% endblock heading %}
+
+
+{% block content %}
+
+<form action="/get-user{{user.id}}" method="POST">
+    <input type="text" name="first-name" value="{{user.first_name}}" autofocus>
+    <input type="text" name="last-name" value="{{user.last_name}}" autofocus>
+    <input type="text" name="img-url" value="{{user.image_url}}" autofocus>
+    <button> Submit </button>
+</form>
+
+<form action="/">
+    <button>Home</button>
+</form>
+
+{% endblock content%}

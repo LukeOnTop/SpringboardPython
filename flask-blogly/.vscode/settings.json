@@ -1,0 +1,14 @@
+{
+    "python.pythonPath": "/Users/lucaslast/Desktop/flask-blogly/venv/bin/python3.9",
+    "python.formatting.provider": "yapf",
+    "python.testing.unittestArgs": [
+        "-v",
+        "-s",
+        ".",
+        "-p",
+        "test_*.py"
+    ],
+    "python.testing.pytestEnabled": false,
+    "python.testing.nosetestsEnabled": false,
+    "python.testing.unittestEnabled": true
+}
