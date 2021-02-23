@@ -1,9 +1,11 @@
 """Blogly application."""
 from flask import Flask, render_template, request, redirect, session
-from models import db, connect_db, User
+from datetime import date
+from models import db, connect_db, User, Post
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql:///blogly'
+app.config['SECRET_KEY'] = 'secret'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://localhost/blogly'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SQLALCHEMY_ECHO'] = True
 
@@ -29,9 +31,10 @@ def get_user():
     url = request.form["img-url"]
 
     new_user = User(first_name=firstname, last_name=lastname, image_url=url)
+    user_id = new_user.id
     db.session.add(new_user)
     db.session.commit()
-    return redirect('/')
+    return redirect(f'/')
 
 
 @app.route("/get-user<int:user_id>", methods=["POST"])
@@ -49,9 +52,11 @@ def get_user_edit(user_id):
 
 
 @app.route('/<int:user_id>')
-def user_details(user_id):
+def user_profile(user_id):
     user = User.query.get_or_404(user_id)
-    return render_template("user-details.html", user=user)
+    post = Post.query.all()
+    return render_template("user-profile.html", user=user, post=post)
+
 
 
 @app.route('/edit<int:user_id>')
@@ -65,3 +70,48 @@ def delete_user(user_id):
     User.query.filter_by(id=user_id).delete()
     db.session.commit()
     return redirect('/')
+
+
+@app.route('/new-post<int:user_id>')
+def make_post(user_id):
+    session.pop('userid-for-post', None)
+    session['userid-for-post'] = user_id
+    return render_template("new-post.html", user=user_id)
+
+@app.route('/handle-post', methods=["POST"])
+def handle_post():
+    post_user = session['userid-for-post']
+    post_title = request.form["title"]
+    post_content = request.form["content"]
+
+    db.session.add(Post(title=post_title, content=post_content, created_at= date.today(),user_code=post_user))
+    db.session.commit()
+
+    return redirect('/')
+
+@app.route("/handle-post<int:post_id>", methods=["POST"])
+def handle_post_edit(post_id):
+    post_title = request.form["title"]
+    post_content = request.form["content"]
+
+    post = Post.query.filter_by(id=post_id).first()
+    post.title = post_title
+    post.content = post_content
+
+    db.session.commit()
+    return redirect(f'/user-post{post_id}')
+
+
+@app.route('/user-post<int:post_id>')
+def show_post(post_id):
+    user = User.query.all()
+    posts = Post.query.all()
+    return render_template("user-post.html", post_id=post_id, posts=posts )
+
+@app.route('/edit-post<int:post_id>')
+def edit_post(post_id):
+    post = Post.query.get_or_404(post_id)
+    title = post.title
+    content = post.content
+
+    return render_template('/edit-post.html', title=title, content=content, post=post)

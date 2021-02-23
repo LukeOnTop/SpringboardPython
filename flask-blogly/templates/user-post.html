@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block heading%}
+
+
+{% endblock heading %}
+
+{% block content %}
+
+
+{% for each in posts %}
+
+{% if each.id == post_id %}
+<h2>{{each.title}}</h2>
+<p>{{each.content}}</p>
+{% endif %}
+{% endfor %}
+
+<a href="/edit-post{{post_id}}"> <button>EDIT POST</button>
+</a>
+<a href="/"><button>HOME</button></a>
+{% endblock content %}

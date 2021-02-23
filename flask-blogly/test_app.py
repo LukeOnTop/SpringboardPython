@@ -43,7 +43,7 @@ class UserRouteTestCase(TestCase):
            self.assertIn('FirstNameJohn', html)
 
 
-    def test_user_details(self):
+    def test_user_profile(self):
         with app.test_client() as client:
             resp = client.get(f"/{self.user_id}")
             html = resp.get_data(as_text=True)

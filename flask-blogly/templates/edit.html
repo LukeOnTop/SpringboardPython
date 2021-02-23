@@ -6,16 +6,19 @@
 
 
 {% block content %}
+<div>
+    <form action="/get-user{{user.id}}" method="POST">
+        <input type="text" name="first-name" value="{{user.first_name}}" autofocus>
+        <input type="text" name="last-name" value="{{user.last_name}}" autofocus>
+        <input type="text" name="img-url" value="{{user.image_url}}" autofocus>
+        <button> Submit </button>
+    </form>
 
-<form action="/get-user{{user.id}}" method="POST">
-    <input type="text" name="first-name" value="{{user.first_name}}" autofocus>
-    <input type="text" name="last-name" value="{{user.last_name}}" autofocus>
-    <input type="text" name="img-url" value="{{user.image_url}}" autofocus>
-    <button> Submit </button>
-</form>
 
-<form action="/">
-    <button>Home</button>
-</form>
+    <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
+        <a href="/"><button type="button" class="btn btn-secondary">Home</button></a>
+        <a href="/delete{{user.id}}"><button type="button" class="btn btn-secondary">Delete</button></a>
+    </div>
+</div>
 
 {% endblock content%}

@@ -1,22 +1,19 @@
 {% extends "base.html" %}
 
 {% block heading %}
+
 <h1>Add User</h1>
+<div class="btn-group" role="group" aria-label="Button group with nested dropdown">
+    <a href="/"><button type="button" class="btn btn-secondary">Home</button></a>
+</div>
 {% endblock heading %}
 
-
-
 {% block content %}
-
 <form action="/get-user" method="POST">
     <input type="text" name="first-name" placeholder="first name">
     <input type="text" name="last-name" placeholder="last name">
     <input type="text" name="img-url" placeholder="img url">
     <button> Submit </button>
-</form>
-
-<form action="/">
-    <button>Home</button>
 </form>
 
 {% endblock content %}

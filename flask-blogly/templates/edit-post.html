@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block heading %}
+
+{% endblock heading %}
+
+{% block content %}
+
+<form action="/handle-post{{post.id}}" method="POST">
+    <h3>Title</h3>
+    <textarea name="title" rows="1" cols="30">{{title}}</textarea>
+    <br>
+    <h3>Content</h3>
+    <textarea name="content" rows="10" cols="30">{{content}}</textarea>
+    <button>Submit</button>
+</form>
+
+<a href="/"><button>Home</button></a>
+<a href="/{{post.user_code}}"><button>Profile</button></a>
+
+{% endblock content %}

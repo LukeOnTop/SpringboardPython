@@ -9,9 +9,9 @@
 <div>
     <ul>
         <br>
-        {% for e in user %}
-        <a href="/{{e.id}}">
-            <li>{{e.first_name}} {{e.last_name}}</li>
+        {% for each in user %}
+        <a href="/{{each.id}}">
+            <li>{{each.first_name}} {{each.last_name}}</li>
             {% endfor %}
 
     </ul>
