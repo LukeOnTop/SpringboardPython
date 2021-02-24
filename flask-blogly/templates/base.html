@@ -11,6 +11,13 @@
 </head>
 
 <body>
+    <div>
+
+        <nav class="navbar navbar-dark bg-primary">
+            <a class="navbar-brand" href="/"><span>&#8459;</span> HOME </a>
+            {% block nav%} {% endblock nav %}
+        </nav>
+    </div>
     {% block heading %}{% endblock heading %}
     {% block content %}{% endblock content %}
 </body>

@@ -1,21 +1,28 @@
 {% extends "base.html" %}
 
-{% block heading %}
+{% block nav%}
+<a class="navbar-toggler btn-outline-info" href="/{{post.user_code}}">PROFILE</a>
+{% endblock nav %}
 
+{% block heading %}
 {% endblock heading %}
 
 {% block content %}
+<div style="padding: 10%;">
+    <form action="/handle-post{{post.id}}" method="POST">
+        <div class="row">
+            <h3>Title</h3>
+            <div class="col">
+                <textarea name="title" class="form-control" name="title" rows="1">{{title}}</textarea>
 
-<form action="/handle-post{{post.id}}" method="POST">
-    <h3>Title</h3>
-    <textarea name="title" rows="1" cols="30">{{title}}</textarea>
-    <br>
-    <h3>Content</h3>
-    <textarea name="content" rows="10" cols="30">{{content}}</textarea>
-    <button>Submit</button>
-</form>
+            </div>
+            <h3>Content</h3>
+            <div class="col">
+                <textarea class="form-control" name="content" rows="10" cols="30">{{content}}</textarea>
+                <button> Submit </button>
+            </div>
 
-<a href="/"><button>Home</button></a>
-<a href="/{{post.user_code}}"><button>Profile</button></a>
-
+        </div>
+    </form>
+</div>
 {% endblock content %}

@@ -1,16 +1,20 @@
 {% extends "base.html" %}
 
+
+{% block nav%}
+<a class="navbar-toggler btn-outline-info" href="/new-post{{user.id}}">New Post</a>
+<a class="navbar-toggler btn-outline-info" href="/edit{{user.id}}">Edit Profile</a>
+<a class="navbar-toggler btn-outline-danger" href="/delete{{user.id}}">Delete Profile</a>
+{% endblock nav %}
+
 {% block heading %}
 <h1>{{user.first_name}} {{user.last_name}}</h1>
-<a href="/"><button type="button" class="btn btn-secondary">Home</button></a>
-<a href="/delete{{user.id}}"><button type="button" class="btn btn-secondary">Delete Profile</button></a>
-<a href="/edit{{user.id}}"><button type="button" class="btn btn-secondary">Edit Profile</button></a>
-
 <div>
     <img src="{{user.image_url}}" class="img-thumbnail" alt="" height="300px" width="300px">
 </div>
-
 {% endblock %}
+
+
 
 
 {% block content %}
@@ -24,7 +28,7 @@
 {% endfor %}
 
 
-<a href="/new-post{{user.id}}"><button type="button" class="btn btn-secondary">New Post</button></a>
+
 
 
 {% endblock %}

@@ -1,6 +1,6 @@
 """Blogly application."""
 from flask import Flask, render_template, request, redirect, session
-from datetime import date
+import time
 from models import db, connect_db, User, Post
 
 app = Flask(__name__)
@@ -12,15 +12,16 @@ app.config['SQLALCHEMY_ECHO'] = True
 connect_db(app)
 db.create_all()
 
-
 @app.route('/')
 def home_page():
     user = User.query.all()
+
     return render_template("list-users.html", user=user)
 
 
 @app.route('/add-user')
 def add_user():
+
     return render_template("add-user.html")
 
 
@@ -34,6 +35,7 @@ def get_user():
     user_id = new_user.id
     db.session.add(new_user)
     db.session.commit()
+
     return redirect(f'/')
 
 
@@ -48,6 +50,7 @@ def get_user_edit(user_id):
     user.last_name = lastname
     user.image_url = url
     db.session.commit()
+
     return redirect(f'/{user_id}')
 
 
@@ -55,6 +58,7 @@ def get_user_edit(user_id):
 def user_profile(user_id):
     user = User.query.get_or_404(user_id)
     post = Post.query.all()
+
     return render_template("user-profile.html", user=user, post=post)
 
 
@@ -62,6 +66,7 @@ def user_profile(user_id):
 @app.route('/edit<int:user_id>')
 def edit_user(user_id):
     user = User.query.get(user_id)
+
     return render_template("edit.html", user=user)
 
 
@@ -69,6 +74,7 @@ def edit_user(user_id):
 def delete_user(user_id):
     User.query.filter_by(id=user_id).delete()
     db.session.commit()
+
     return redirect('/')
 
 
@@ -76,6 +82,7 @@ def delete_user(user_id):
 def make_post(user_id):
     session.pop('userid-for-post', None)
     session['userid-for-post'] = user_id
+
     return render_template("new-post.html", user=user_id)
 
 @app.route('/handle-post', methods=["POST"])
@@ -84,7 +91,8 @@ def handle_post():
     post_title = request.form["title"]
     post_content = request.form["content"]
 
-    db.session.add(Post(title=post_title, content=post_content, created_at= date.today(),user_code=post_user))
+    seconds = time.time()
+    db.session.add(Post(title=post_title, content=post_content, created_at = time.ctime(seconds) ,user_code=post_user))
     db.session.commit()
 
     return redirect('/')
@@ -97,8 +105,8 @@ def handle_post_edit(post_id):
     post = Post.query.filter_by(id=post_id).first()
     post.title = post_title
     post.content = post_content
-
     db.session.commit()
+
     return redirect(f'/user-post{post_id}')
 
 
@@ -106,6 +114,7 @@ def handle_post_edit(post_id):
 def show_post(post_id):
     user = User.query.all()
     posts = Post.query.all()
+
     return render_template("user-post.html", post_id=post_id, posts=posts )
 
 @app.route('/edit-post<int:post_id>')
@@ -115,3 +124,10 @@ def edit_post(post_id):
     content = post.content
 
     return render_template('/edit-post.html', title=title, content=content, post=post)
+
+@app.route('/delete-post<int:post_id>')
+def delete_post(post_id):
+    Post.query.filter_by(id=post_id).delete()
+    db.session.commit()
+    return redirect('/')
+

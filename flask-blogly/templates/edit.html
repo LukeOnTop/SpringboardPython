@@ -1,24 +1,30 @@
 {% extends "base.html" %}
 
+{% block nav%}
+
+<a class="navbar-toggler btn-outline-info" href="/{{user.id}}">Profile</a>
+{% endblock nav %}
+
+
+
+
 {% block heading %}
 <h1>Edit Me! - {{user.first_name}}</h1>
 {% endblock heading %}
 
 
 {% block content %}
-<div>
-    <form action="/get-user{{user.id}}" method="POST">
-        <input type="text" name="first-name" value="{{user.first_name}}" autofocus>
-        <input type="text" name="last-name" value="{{user.last_name}}" autofocus>
-        <input type="text" name="img-url" value="{{user.image_url}}" autofocus>
-        <button> Submit </button>
+<div class="form-group" style="padding: 10%;">
+    <form action=" /get-user{{user.id}}" method="POST">
+        <input type="text" name="first-name" class="form-control" value="{{user.first_name}}" autofocus
+            style="width: auto;">
+        <br>
+        <input type="text" name="last-name" class="form-control" value="{{user.last_name}}" autofocus
+            style="width: auto;">
+        <br>
+        <input type="text" name="img-url" class="form-control" value="{{user.image_url}}" autofocus>
+        <button style="margin-top: 2%;"> Submit </button>
     </form>
-
-
-    <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
-        <a href="/"><button type="button" class="btn btn-secondary">Home</button></a>
-        <a href="/delete{{user.id}}"><button type="button" class="btn btn-secondary">Delete</button></a>
-    </div>
 </div>
 
-{% endblock content%}
+{% endblock content %}

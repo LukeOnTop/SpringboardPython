@@ -1,5 +1,12 @@
 {% extends "base.html" %}
 
+{% block nav%}
+<a class="navbar-toggler btn-outline-info" href="/edit-post{{post_id}}">EDIT POST</a>
+<a class="navbar-toggler btn-outline-info" href="/delete-post{{post_id}}">DELETE POST</a>
+
+{% endblock nav %}
+
+
 {% block heading%}
 
 
@@ -11,12 +18,14 @@
 {% for each in posts %}
 
 {% if each.id == post_id %}
-<h2>{{each.title}}</h2>
-<p>{{each.content}}</p>
+
+<div class="text-center" style="padding: 5%;">
+    <h2>{{each.title}}</h2>
+    <p>{{each.content}}</p>
+</div>
+
 {% endif %}
 {% endfor %}
 
-<a href="/edit-post{{post_id}}"> <button>EDIT POST</button>
-</a>
-<a href="/"><button>HOME</button></a>
+
 {% endblock content %}

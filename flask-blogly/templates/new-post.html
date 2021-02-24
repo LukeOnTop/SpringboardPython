@@ -1,18 +1,29 @@
 {% extends "base.html" %}
 
+
+
+
 {% block heading %}
 
 {% endblock heading %}
 
 {% block content %}
+<div style="padding: 10%;">
+    <form action="/handle-post" method="POST">
+        <div class="row">
+            <h3>Title</h3>
+            <div class="col">
+                <textarea name="title" class="form-control" name="title" rows="1"></textarea>
 
-<form action="/handle-post" method="POST">
-    <h3>Title</h3>
-    <textarea name="title" name="title" rows="1" cols="30"></textarea>
-    <br>
-    <h3>Content</h3>
-    <textarea name="content" name="content" rows="10" cols="30"></textarea>
-    <button> Submit </button>
-</form>
+            </div>
+            <h3>Content</h3>
+            <div class="col">
+                <textarea class="form-control" name="content" rows="10" cols="30"></textarea>
+                <button> Submit </button>
+            </div>
+
+        </div>
+    </form>
+</div>
 
 {% endblock content %}
