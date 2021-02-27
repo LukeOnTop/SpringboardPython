@@ -21,7 +21,7 @@ class UserRouteTestCase(TestCase):
     def setUp(self):
         """Add sample user."""
 
-        User.query.delete()
+        # User.query.delete() ## try removing because db.drop_all() should already handle this. 
         user = User(first_name="FirstNameJohn", last_name= "LastNameDoe", image_url="https://picsum.photos/200")
         db.session.add(user)
         db.session.commit()
@@ -76,6 +76,7 @@ class UserRouteTestCase(TestCase):
 
             self.assertEqual(resp.status_code, 200)
             self.assertIn(f"<h3>Content</h3>", html)
+
 
 
 class PostRouteTestCase(TestCase):

@@ -3,29 +3,26 @@
 {% block nav%}
 <a class="navbar-toggler btn-outline-info" href="/edit-post{{post_id}}">EDIT POST</a>
 <a class="navbar-toggler btn-outline-info" href="/delete-post{{post_id}}">DELETE POST</a>
-
 {% endblock nav %}
 
 
 {% block heading%}
-
-
 {% endblock heading %}
 
 {% block content %}
+{% for post in posts %}
+{% if post.id == post_id%}
+<p>{{post.title}}</p>
+<p>{{post.content}}</p>
 
-
-{% for each in posts %}
-
-{% if each.id == post_id %}
-
-<div class="text-center" style="padding: 5%;">
-    <h2>{{each.title}}</h2>
-    <p>{{each.content}}</p>
-</div>
-
+{% if post.tags %}
+<p>
+    <b>Tags:</b>
+    {% for tag in post.tags %}
+    {{ tag.name }}
+    {% endfor %}
+</p>
+{% endif %}
 {% endif %}
 {% endfor %}
-
-
 {% endblock content %}

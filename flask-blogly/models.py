@@ -29,6 +29,8 @@ class User(db.Model):
                             nullable=False,
                             unique=False)
 
+    posts = db.relationship("Post", backref="user", cascade="all, delete-orphan")
+
     
 
 class Post(db.Model):
@@ -53,4 +55,33 @@ class Post(db.Model):
                         nullable=False, 
                         unique=False)
 
-    user_code = db.Column(db.Integer, db.ForeignKey('user.id'))
+    user_code = db.Column(db.Integer, db.ForeignKey('user.id', ondelete="CASCADE"), nullable=False)
+
+    #tags = db.relationship("Tag", secondary="posts_tags", backref="post")
+
+class PostTag(db.Model):
+    """Tag on a post."""
+
+    __tablename__ = "posts_tags"
+
+    post_id = db.Column(db.Integer, db.ForeignKey('post.id', ondelete="CASCADE"), primary_key=True)
+    tag_id = db.Column(db.Integer, db.ForeignKey('tags.id', ondelete="CASCADE"), primary_key=True)
+
+
+class Tag(db.Model):
+    """Tag that can be added to posts."""
+
+    __tablename__ = 'tags'
+
+    id = db.Column(db.Integer, primary_key=True)
+    
+    name = db.Column(db.Text, nullable=False, unique=True)
+
+    post = db.relationship("Post", secondary="posts_tags", backref="tags")
+
+    
+    # cascade="all,delete",
+
+
+
+
